@@ -3,1394 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RaktaSeva – Blood Donation VIP Temple Pass</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>IronPulse Gym</title>
 <style>
-  :root {
-    --crimson: #8B0000;
-    --crimson-light: #B71C1C;
-    --crimson-dark: #5C0000;
-    --gold: #C9942A;
-    --gold-light: #E8B84B;
-    --ivory: #FAF7F2;
-    --ivory-dark: #F0EBE3;
-    --charcoal: #1C1C1E;
-    --charcoal-soft: #3A3A3C;
-    --rose: #FFE4E4;
-    --white: #FFFFFF;
-    --success: #2E7D32;
-    --pending: #E65100;
-    --shadow: 0 4px 24px rgba(139,0,0,0.10);
-    --shadow-lg: 0 12px 48px rgba(139,0,0,0.16);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--ivory);
-    color: var(--charcoal);
-    min-height: 100vh;
-  }
-  h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;color:#222;background:#fff}
+  a{text-decoration:none;color:inherit}
 
-  /* ===== PAGE SYSTEM ===== */
-  .page { display: none; min-height: 100vh; }
-  .page.active { display: block; }
+  /* NAV */
+  nav{background:#1a1a1a;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+  .logo{font-size:20px;font-weight:700;color:#E24B4A;letter-spacing:2px}
+  .nav-links{display:flex;gap:0;list-style:none}
+  .nav-links li a{display:block;padding:0 16px;height:56px;line-height:56px;font-size:14px;color:#ccc;transition:color 0.2s,background 0.2s}
+  .nav-links li a:hover,.nav-links li a.active{color:#fff;background:#2a2a2a}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+  .hamburger span{width:22px;height:2px;background:#ccc;border-radius:2px;display:block}
 
-  /* ===== NAVBAR ===== */
-  nav {
-    background: var(--white);
-    border-bottom: 3px solid var(--crimson);
-    position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 16px rgba(139,0,0,0.10);
-  }
-  .nav-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 68px;
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; font-weight: 900;
-    color: var(--crimson);
-    display: flex; align-items: center; gap: 0.5rem;
-    cursor: pointer; text-decoration: none;
-  }
-  .nav-logo span { color: var(--gold); }
-  .nav-drop { width: 22px; height: 28px; }
-  .nav-links { display: flex; gap: 0.2rem; align-items: center; flex-wrap: wrap; }
-  .nav-links a {
-    font-size: 0.85rem; font-weight: 500; color: var(--charcoal-soft);
-    padding: 0.4rem 0.75rem; border-radius: 6px;
-    text-decoration: none; transition: all 0.2s; cursor: pointer;
-  }
-  .nav-links a:hover, .nav-links a.active { background: var(--rose); color: var(--crimson); }
-  .nav-btn {
-    background: var(--crimson); color: var(--white) !important;
-    border-radius: 8px !important; font-weight: 600 !important;
-  }
-  .nav-btn:hover { background: var(--crimson-light) !important; color: var(--white) !important; }
+  /* HERO */
+  .hero{background:#1a1a1a;color:#fff;padding:5rem 2rem;text-align:center;border-bottom:3px solid #E24B4A}
+  .hero h1{font-size:48px;font-weight:700;color:#E24B4A;margin-bottom:0.5rem;letter-spacing:3px}
+  .hero p{font-size:18px;color:#aaa;margin-bottom:2rem}
+  .hero-btn{display:inline-block;background:#E24B4A;color:#fff;padding:13px 36px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;border:none}
+  .hero-btn:hover{background:#c73c3c}
 
-  /* ===== BUTTONS ===== */
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.75rem 1.75rem; border-radius: 10px;
-    font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
-    border: none; cursor: pointer; transition: all 0.2s; text-decoration: none;
-  }
-  .btn-primary { background: var(--crimson); color: var(--white); }
-  .btn-primary:hover { background: var(--crimson-light); transform: translateY(-1px); box-shadow: var(--shadow); }
-  .btn-gold { background: var(--gold); color: var(--white); }
-  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--crimson); border: 2px solid var(--crimson); }
-  .btn-outline:hover { background: var(--rose); }
-  .btn-sm { padding: 0.5rem 1.1rem; font-size: 0.85rem; }
-  .btn-lg { padding: 1rem 2.5rem; font-size: 1.05rem; }
+  /* SECTIONS */
+  .section{padding:3rem 2rem;max-width:960px;margin:0 auto}
+  .section-title{font-size:26px;font-weight:700;margin-bottom:0.4rem}
+  .section-sub{font-size:14px;color:#777;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid #eee}
 
-  /* ===== CARDS ===== */
-  .card {
-    background: var(--white); border-radius: 16px;
-    box-shadow: var(--shadow); padding: 2rem;
-    border: 1px solid rgba(139,0,0,0.08);
-  }
-  .card-sm { padding: 1.25rem; }
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+  .stat-card{background:#f5f5f5;border-radius:12px;padding:1.25rem;text-align:center}
+  .stat-icon{font-size:28px;margin-bottom:8px}
+  .stat-num{font-size:30px;font-weight:700;color:#E24B4A}
+  .stat-label{font-size:13px;color:#666;margin-top:4px}
 
-  /* ===== FORMS ===== */
-  .form-group { margin-bottom: 1.25rem; }
-  .form-group label {
-    display: block; font-size: 0.85rem; font-weight: 600;
-    color: var(--charcoal-soft); margin-bottom: 0.4rem;
-    text-transform: uppercase; letter-spacing: 0.04em;
-  }
-  .form-control {
-    width: 100%; padding: 0.75rem 1rem;
-    border: 1.5px solid #E0D8D0; border-radius: 10px;
-    font-family: 'Inter', sans-serif; font-size: 0.95rem;
-    background: var(--white); color: var(--charcoal);
-    transition: border-color 0.2s;
-    outline: none;
-  }
-  .form-control:focus { border-color: var(--crimson); box-shadow: 0 0 0 3px rgba(139,0,0,0.08); }
-  .form-control select { background: var(--white); }
-  select.form-control { appearance: none; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+  .service-card{background:#fff;border:1px solid #eee;border-radius:12px;padding:1.25rem;transition:box-shadow 0.2s}
+  .service-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+  .service-icon{font-size:28px;margin-bottom:10px}
+  .service-card h3{font-size:15px;font-weight:600;margin-bottom:6px}
+  .service-card p{font-size:13px;color:#666;line-height:1.6}
 
-  /* ===== BADGES ===== */
-  .badge {
-    display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px;
-    font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .badge-pending { background: #FFF3E0; color: var(--pending); }
-  .badge-approved { background: #E8F5E9; color: var(--success); }
-  .badge-rejected { background: #FFEBEE; color: var(--crimson); }
-  .badge-gold { background: #FFF8E1; color: var(--gold); }
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .plan-card{background:#fff;border:1px solid #eee;border-radius:12px;padding:1.75rem;text-align:center}
+  .plan-card.featured{border:2px solid #E24B4A}
+  .plan-badge{display:inline-block;background:#FCEBEB;color:#A32D2D;font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:10px}
+  .plan-name{font-size:18px;font-weight:700;margin-bottom:8px}
+  .plan-price{font-size:36px;font-weight:700;color:#E24B4A}
+  .plan-price span{font-size:14px;color:#888;font-weight:400}
+  .plan-features{list-style:none;margin:1.25rem 0;text-align:left;font-size:13px;color:#555}
+  .plan-features li{padding:6px 0;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:8px}
+  .plan-features li::before{content:"✓";color:#E24B4A;font-weight:700;min-width:14px}
+  .plan-btn{display:block;margin-top:1rem;background:#E24B4A;color:#fff;padding:11px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;width:100%;transition:background 0.2s}
+  .plan-btn:hover{background:#c73c3c}
+  .plan-btn.outline{background:transparent;color:#E24B4A;border:1.5px solid #E24B4A}
+  .plan-btn.outline:hover{background:#FCEBEB}
 
-  /* ===== SECTION ===== */
-  .section { padding: 5rem 2rem; }
-  .section-sm { padding: 3rem 2rem; }
-  .container { max-width: 1200px; margin: 0 auto; }
-  .container-sm { max-width: 640px; margin: 0 auto; }
-  .section-title {
-    font-size: 2.2rem; font-weight: 700; color: var(--crimson);
-    margin-bottom: 0.5rem;
-  }
-  .section-sub { font-size: 1.05rem; color: #6B6B6B; margin-bottom: 3rem; }
-  .divider { width: 56px; height: 4px; background: var(--gold); border-radius: 2px; margin: 1rem 0 2rem; }
+  /* CONTACT */
+  .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .contact-form{background:#f8f8f8;border-radius:12px;padding:1.75rem}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .form-group label{font-size:13px;color:#555;font-weight:500}
+  .form-group input,.form-group textarea,.form-group select{background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px 12px;font-size:14px;color:#222;font-family:inherit;outline:none;transition:border-color 0.2s}
+  .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#E24B4A}
+  .form-group textarea{resize:vertical;min-height:100px}
+  .submit-btn{background:#E24B4A;color:#fff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:background 0.2s}
+  .submit-btn:hover{background:#c73c3c}
+  .contact-info{display:flex;flex-direction:column;gap:14px}
+  .info-card{background:#f8f8f8;border-radius:12px;padding:1.25rem;display:flex;gap:14px;align-items:flex-start}
+  .info-icon{font-size:22px;min-width:28px;margin-top:2px}
+  .info-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+  .info-card p{font-size:13px;color:#666;line-height:1.6}
 
-  /* ===== ALERT ===== */
-  .alert {
-    padding: 0.9rem 1.2rem; border-radius: 10px; margin-bottom: 1rem;
-    font-size: 0.92rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;
-  }
-  .alert-success { background: #E8F5E9; color: var(--success); border: 1px solid #A5D6A7; }
-  .alert-error { background: #FFEBEE; color: var(--crimson); border: 1px solid #FFCDD2; }
-  .alert-info { background: #E3F2FD; color: #1565C0; border: 1px solid #BBDEFB; }
+  /* FOOTER */
+  .footer{background:#1a1a1a;color:#888;text-align:center;padding:1.5rem;font-size:13px;margin-top:3rem}
+  .footer span{color:#E24B4A;font-weight:600}
 
-  /* ===== TABLE ===== */
-  .table-wrap { overflow-x: auto; border-radius: 12px; }
-  table { width: 100%; border-collapse: collapse; }
-  th {
-    background: var(--crimson); color: var(--white);
-    padding: 0.85rem 1rem; text-align: left; font-size: 0.82rem;
-    text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
-  }
-  th:first-child { border-radius: 0; }
-  td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--ivory-dark); font-size: 0.92rem; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--rose); }
+  /* PAGES */
+  .page{display:none}
+  .page.active{display:block}
 
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--charcoal);
-    color: rgba(255,255,255,0.7);
-    padding: 3rem 2rem 1.5rem;
-    margin-top: auto;
-  }
-  .footer-inner { max-width: 1200px; margin: 0 auto; }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
-  .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 0.75rem; }
-  .footer-links { list-style: none; }
-  .footer-links li { margin-bottom: 0.5rem; }
-  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
-  .footer-links a:hover { color: var(--gold); }
-  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.2rem; font-size: 0.83rem; text-align: center; }
-
-  /* ===== HEARTBEAT ANIMATION ===== */
-  @keyframes heartbeat {
-    0%,100% { transform: scale(1); }
-    14% { transform: scale(1.18); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.12); }
-    70% { transform: scale(1); }
-  }
-  @keyframes drip {
-    0% { transform: translateY(-8px) scale(0.85); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(0px) scale(1); opacity: 0.7; }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pulse-ring {
-    0% { transform: scale(0.9); opacity: 0.8; }
-    100% { transform: scale(1.6); opacity: 0; }
-  }
-  @keyframes scan-line {
-    0%, 100% { top: 10%; }
-    50% { top: 85%; }
-  }
-  .animate-fade-up { animation: fadeUp 0.7s ease both; }
-
-  /* ===== HOME PAGE ===== */
-  .hero {
-    background: linear-gradient(135deg, var(--crimson-dark) 0%, var(--crimson) 60%, #C62828 100%);
-    color: var(--white); padding: 5rem 2rem 4rem;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 10 C20 10 10 20 10 28 C10 40 30 52 30 52 C30 52 50 40 50 28 C50 20 40 10 30 10Z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
-    opacity: 0.4;
-  }
-  .hero-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-    position: relative; z-index: 1;
-  }
-  .hero-eyebrow {
-    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gold-light);
-    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
-  }
-  .hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--gold-light); }
-  .hero h1 {
-    font-size: 3.2rem; line-height: 1.15; font-weight: 900;
-    margin-bottom: 1.25rem;
-  }
-  .hero h1 em { font-style: normal; color: var(--gold-light); }
-  .hero p { font-size: 1.1rem; line-height: 1.7; opacity: 0.88; margin-bottom: 2rem; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .hero-visual {
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-  }
-  .hero-drop-wrap {
-    position: relative; width: 280px; height: 280px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .hero-drop-ring {
-    position: absolute; width: 220px; height: 220px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.2);
-    animation: pulse-ring 2s ease-out infinite;
-  }
-  .hero-drop-ring:nth-child(2) { animation-delay: 0.7s; }
-  .hero-drop {
-    animation: heartbeat 1.4s ease-in-out infinite;
-    filter: drop-shadow(0 8px 32px rgba(255,255,255,0.2));
-  }
-  .hero-stats {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-    background: rgba(255,255,255,0.15); border-radius: 16px; overflow: hidden;
-    margin-top: 2.5rem;
-  }
-  .hero-stat {
-    background: rgba(0,0,0,0.15); padding: 1.25rem;
-    text-align: center; backdrop-filter: blur(4px);
-  }
-  .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--gold-light); }
-  .hero-stat-label { font-size: 0.78rem; opacity: 0.8; margin-top: 0.2rem; }
-
-  .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-  .how-step {
-    background: var(--white); border-radius: 16px; padding: 2rem 1.5rem; text-align: center;
-    border: 1px solid var(--ivory-dark); position: relative;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .how-step:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-  .how-step-num {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--crimson); color: var(--white);
-    font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.2rem;
-  }
-  .how-step-icon { font-size: 2.2rem; margin-bottom: 0.75rem; }
-  .how-step h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--crimson); }
-  .how-step p { font-size: 0.88rem; color: #6B6B6B; line-height: 1.6; }
-  .how-connector {
-    position: absolute; right: -1rem; top: 50%;
-    transform: translateY(-50%); color: var(--gold); font-size: 1.2rem; z-index: 1;
-  }
-
-  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .feature-card {
-    background: var(--white); border-radius: 16px; padding: 2rem;
-    border-left: 4px solid var(--crimson);
-    transition: transform 0.2s; cursor: default;
-  }
-  .feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-  .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .feature-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-  .feature-card p { font-size: 0.88rem; color: #6B6B6B; line-height: 1.6; }
-
-  /* ===== AUTH PAGES ===== */
-  .auth-wrap {
-    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-    background: var(--ivory);
-  }
-  .auth-left {
-    background: linear-gradient(160deg, var(--crimson-dark), var(--crimson));
-    padding: 3rem; display: flex; flex-direction: column; justify-content: center;
-    position: relative; overflow: hidden;
-  }
-  .auth-left::before {
-    content: ''; position: absolute; bottom: -80px; left: -80px;
-    width: 320px; height: 320px; border-radius: 50%;
-    background: rgba(255,255,255,0.05);
-  }
-  .auth-left h2 { font-size: 2.5rem; color: var(--white); margin-bottom: 1rem; position: relative; }
-  .auth-left p { color: rgba(255,255,255,0.8); font-size: 1rem; line-height: 1.7; position: relative; }
-  .auth-left-drop { margin-bottom: 2rem; }
-  .auth-right { padding: 3rem; display: flex; align-items: center; justify-content: center; }
-  .auth-form-wrap { width: 100%; max-width: 420px; }
-  .auth-form-wrap h3 { font-size: 1.8rem; margin-bottom: 0.3rem; }
-  .auth-form-wrap .sub { font-size: 0.92rem; color: #6B6B6B; margin-bottom: 2rem; }
-  .auth-switch { margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: #6B6B6B; }
-  .auth-switch a { color: var(--crimson); font-weight: 600; cursor: pointer; }
-
-  /* ===== DASHBOARD ===== */
-  .dash-layout {
-    display: grid; grid-template-columns: 260px 1fr;
-    min-height: calc(100vh - 68px);
-  }
-  .dash-sidebar {
-    background: var(--white); border-right: 1px solid var(--ivory-dark);
-    padding: 2rem 1rem; position: sticky; top: 68px; height: calc(100vh - 68px);
-    overflow-y: auto;
-  }
-  .dash-profile {
-    text-align: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--ivory-dark); margin-bottom: 1.5rem;
-  }
-  .dash-avatar {
-    width: 70px; height: 70px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--crimson), var(--crimson-light));
-    color: var(--white); font-family: 'Playfair Display', serif;
-    font-size: 1.8rem; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 0.75rem;
-    border: 3px solid var(--gold);
-  }
-  .dash-profile h4 { font-size: 1rem; margin-bottom: 0.2rem; }
-  .dash-profile p { font-size: 0.82rem; color: #6B6B6B; }
-  .dash-blood-badge {
-    display: inline-block; background: var(--crimson); color: var(--white);
-    font-weight: 700; font-size: 0.9rem; padding: 0.2rem 0.7rem; border-radius: 20px; margin-top: 0.4rem;
-  }
-  .sidebar-nav { list-style: none; }
-  .sidebar-nav li { margin-bottom: 0.2rem; }
-  .sidebar-nav a {
-    display: flex; align-items: center; gap: 0.75rem;
-    padding: 0.75rem 1rem; border-radius: 10px;
-    font-size: 0.92rem; font-weight: 500; color: var(--charcoal-soft);
-    text-decoration: none; cursor: pointer; transition: all 0.2s;
-  }
-  .sidebar-nav a:hover, .sidebar-nav a.active { background: var(--rose); color: var(--crimson); font-weight: 600; }
-  .sidebar-nav .nav-icon { width: 20px; text-align: center; }
-  .dash-main { padding: 2.5rem; background: var(--ivory); }
-  .dash-header { margin-bottom: 2rem; }
-  .dash-header h2 { font-size: 1.8rem; margin-bottom: 0.3rem; }
-  .dash-header p { color: #6B6B6B; font-size: 0.95rem; }
-
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
-  .stat-card {
-    background: var(--white); border-radius: 14px; padding: 1.5rem;
-    border: 1px solid var(--ivory-dark); display: flex; align-items: center; gap: 1rem;
-  }
-  .stat-icon {
-    width: 52px; height: 52px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-  }
-  .stat-icon.red { background: var(--rose); }
-  .stat-icon.gold { background: #FFF8E1; }
-  .stat-icon.green { background: #E8F5E9; }
-  .stat-icon.blue { background: #E3F2FD; }
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--crimson); }
-  .stat-label { font-size: 0.82rem; color: #6B6B6B; margin-top: 0.1rem; }
-
-  /* ===== VIP PASS ===== */
-  .pass-wrap {
-    max-width: 480px; margin: 0 auto;
-    background: linear-gradient(135deg, var(--crimson-dark) 0%, var(--crimson) 40%, #C62828 100%);
-    border-radius: 24px; overflow: hidden;
-    box-shadow: 0 20px 60px rgba(139,0,0,0.35);
-    position: relative;
-  }
-  .pass-wrap::before {
-    content: ''; position: absolute;
-    width: 200px; height: 200px; border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    top: -60px; right: -60px;
-  }
-  .pass-header {
-    padding: 2rem 2rem 1rem;
-    border-bottom: 1px dashed rgba(255,255,255,0.25);
-    position: relative; z-index: 1;
-  }
-  .pass-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
-  .pass-title { color: var(--white); font-size: 1.5rem; font-weight: 900; font-family: 'Playfair Display', serif; }
-  .pass-subtitle { color: rgba(255,255,255,0.7); font-size: 0.82rem; margin-top: 0.2rem; }
-  .pass-body { padding: 1.5rem 2rem; display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; position: relative; z-index: 1; }
-  .pass-info .pass-name { color: var(--white); font-size: 1.3rem; font-weight: 700; font-family: 'Playfair Display', serif; }
-  .pass-info .pass-detail { color: rgba(255,255,255,0.75); font-size: 0.85rem; margin-top: 0.2rem; }
-  .pass-info .pass-blood { background: var(--gold); color: var(--white); font-weight: 800; font-size: 1rem; padding: 0.3rem 0.9rem; border-radius: 20px; display: inline-block; margin-top: 0.75rem; }
-  .pass-qr {
-    background: var(--white); padding: 0.75rem; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .pass-footer {
-    background: rgba(0,0,0,0.25); padding: 1rem 2rem;
-    display: flex; justify-content: space-between; align-items: center;
-    position: relative; z-index: 1;
-  }
-  .pass-footer .f-label { font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; }
-  .pass-footer .f-value { font-size: 0.92rem; color: var(--white); font-weight: 600; }
-  .pass-valid { color: var(--gold-light) !important; }
-
-  /* ===== QR CODE (CSS drawn) ===== */
-  .qr-svg { display: block; }
-
-  /* ===== TEMPLE VERIFY ===== */
-  .scan-frame {
-    width: 280px; height: 280px; border-radius: 20px;
-    border: 3px solid var(--crimson);
-    position: relative; overflow: hidden;
-    background: #000; margin: 0 auto;
-  }
-  .scan-line {
-    position: absolute; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, transparent, var(--crimson), transparent);
-    animation: scan-line 2.5s ease-in-out infinite;
-  }
-  .scan-corner {
-    position: absolute; width: 24px; height: 24px;
-    border-color: var(--gold); border-style: solid;
-  }
-  .scan-corner.tl { top: 12px; left: 12px; border-width: 3px 0 0 3px; }
-  .scan-corner.tr { top: 12px; right: 12px; border-width: 3px 3px 0 0; }
-  .scan-corner.bl { bottom: 12px; left: 12px; border-width: 0 0 3px 3px; }
-  .scan-corner.br { bottom: 12px; right: 12px; border-width: 0 3px 3px 0; }
-  .scan-content { color: rgba(255,255,255,0.5); font-size: 0.85rem; text-align: center; padding: 2rem; margin-top: 3rem; }
-
-  /* ===== ABOUT ===== */
-  .about-hero {
-    background: linear-gradient(135deg, var(--crimson-dark), var(--crimson));
-    color: var(--white); padding: 5rem 2rem; text-align: center;
-  }
-  .about-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-  .about-hero p { font-size: 1.1rem; opacity: 0.85; max-width: 640px; margin: 0 auto; }
-  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-  .team-card { background: var(--white); border-radius: 16px; padding: 2rem 1.5rem; text-align: center; }
-  .team-avatar {
-    width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700;
-    color: var(--white);
-  }
-  .team-card h4 { font-size: 1rem; margin-bottom: 0.2rem; }
-  .team-card p { font-size: 0.82rem; color: #6B6B6B; }
-  .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-
-  /* ===== CONTACT ===== */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; }
-  .contact-info-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
-  .contact-icon { font-size: 1.5rem; width: 48px; height: 48px; background: var(--rose); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .contact-detail h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
-  .contact-detail p { font-size: 0.88rem; color: #6B6B6B; line-height: 1.5; }
-
-  /* ===== ADMIN ===== */
-  .admin-table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
-  .admin-table-header h3 { font-size: 1.2rem; }
-  .verification-card { background: var(--white); border-radius: 14px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid var(--ivory-dark); display: flex; align-items: center; gap: 1.5rem; }
-  .verification-card .cert-preview { width: 60px; height: 60px; background: var(--ivory-dark); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
-  .verification-card .cert-info { flex: 1; }
-  .verification-card .cert-info h4 { font-size: 1rem; margin-bottom: 0.25rem; }
-  .verification-card .cert-info p { font-size: 0.85rem; color: #6B6B6B; }
-  .cert-actions { display: flex; gap: 0.5rem; }
-
-  /* ===== SUBMIT DONATION ===== */
-  .upload-area {
-    border: 2px dashed #C5B8AC; border-radius: 12px;
-    padding: 2.5rem; text-align: center; background: var(--ivory);
-    cursor: pointer; transition: all 0.2s;
-  }
-  .upload-area:hover { border-color: var(--crimson); background: var(--rose); }
-  .upload-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-  .upload-area p { font-size: 0.9rem; color: #6B6B6B; }
-  .upload-area strong { color: var(--crimson); }
-
-  /* ===== NOTIFICATION ===== */
-  .notif-item { background: var(--white); border-radius: 12px; padding: 1.1rem 1.5rem; margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 1rem; border-left: 4px solid var(--crimson); }
-  .notif-item.gold { border-left-color: var(--gold); }
-  .notif-item.green { border-left-color: var(--success); }
-  .notif-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--crimson); flex-shrink: 0; margin-top: 5px; }
-  .notif-dot.gold { background: var(--gold); }
-  .notif-dot.green { background: var(--success); }
-  .notif-content h5 { font-size: 0.92rem; margin-bottom: 0.2rem; }
-  .notif-content p { font-size: 0.84rem; color: #6B6B6B; }
-  .notif-time { font-size: 0.78rem; color: #9E9E9E; white-space: nowrap; margin-left: auto; }
-
-  @media (max-width: 900px) {
-    .hero-inner, .auth-wrap, .dash-layout, .footer-grid, .form-row { grid-template-columns: 1fr; }
-    .how-grid, .features-grid, .team-grid { grid-template-columns: 1fr 1fr; }
-    .stats-row { grid-template-columns: 1fr 1fr; }
-    .auth-left { display: none; }
-    .mission-grid, .contact-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.2rem; }
-    .nav-links { display: none; }
-    .dash-sidebar { display: none; }
+  /* MOBILE */
+  @media(max-width:640px){
+    .hamburger{display:flex}
+    .nav-links{display:none;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:#1a1a1a;z-index:99}
+    .nav-links.open{display:flex}
+    .nav-links li a{height:44px;line-height:44px;border-bottom:1px solid #2a2a2a;padding-left:1.5rem}
+    .hero h1{font-size:32px}
+    .contact-layout{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav id="main-nav">
-  <div class="nav-inner">
-    <div class="nav-logo" onclick="showPage('home')">
-      <svg class="nav-drop" viewBox="0 0 22 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11 1C11 1 2 10.5 2 17C2 21.97 6.03 26 11 26C15.97 26 20 21.97 20 17C20 10.5 11 1 11 1Z" fill="#8B0000"/>
-        <path d="M11 8C11 8 6 13.5 6 17C6 19.76 8.24 22 11 22V8Z" fill="rgba(255,255,255,0.25)"/>
-      </svg>
-      Rakta<span>Seva</span>
-    </div>
-    <div class="nav-links" id="nav-links">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('about')">About Us</a>
-      <a onclick="showPage('donor-dashboard')">Dashboard</a>
-      <a onclick="showPage('submit-donation')">Donate</a>
-      <a onclick="showPage('vip-pass')">VIP Pass</a>
-      <a onclick="showPage('temple-verify')">Temple Verify</a>
-      <a onclick="showPage('contact')">Contact</a>
-      <a onclick="showPage('login')" class="nav-btn btn">Login</a>
-    </div>
-  </div>
+<nav>
+  <div class="logo">IRONPULSE</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" class="active" onclick="showPage('home',this);return false">Home</a></li>
+    <li><a href="#" onclick="showPage('services',this);return false">Services</a></li>
+    <li><a href="#" onclick="showPage('pricing',this);return false">Pricing</a></li>
+    <li><a href="#" onclick="showPage('contact',this);return false">Contact us</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- ==================== HOME PAGE ==================== -->
-<div class="page active" id="page-home">
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="animate-fade-up">
-        <div class="hero-eyebrow">RaktaSeva Platform</div>
-        <h1>Donate Blood,<br>Receive <em>Divine</em> Blessings</h1>
-        <p>Every blood donation earns you a free VIP temple entry pass. Your act of generosity gives life — and opens the sacred doors of gratitude.</p>
-        <div class="hero-actions">
-          <button class="btn btn-gold btn-lg" onclick="showPage('register')">🩸 Register Now</button>
-          <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="showPage('about')">Learn More</button>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="hero-stat-num">1,240+</div><div class="hero-stat-label">Blood Donors</div></div>
-          <div class="hero-stat"><div class="hero-stat-num">48</div><div class="hero-stat-label">Partner Temples</div></div>
-          <div class="hero-stat"><div class="hero-stat-num">3,600+</div><div class="hero-stat-label">Lives Saved</div></div>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-drop-wrap">
-          <div class="hero-drop-ring"></div>
-          <div class="hero-drop-ring"></div>
-          <svg class="hero-drop" width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M80 5C80 5 10 75 10 120C10 158.66 41.34 190 80 190C118.66 190 150 158.66 150 120C150 75 80 5 80 5Z" fill="white" fill-opacity="0.15" stroke="white" stroke-width="2"/>
-            <path d="M80 30C80 30 25 85 25 120C25 150.93 51.07 177 80 177C108.93 177 135 150.93 135 120C135 85 80 30 80 30Z" fill="white" fill-opacity="0.25"/>
-            <path d="M80 60C80 60 45 100 45 120C45 138.78 61.22 154 80 154V60Z" fill="white" fill-opacity="0.15"/>
-            <text x="80" y="135" text-anchor="middle" font-family="Playfair Display" font-size="48" font-weight="900" fill="white" fill-opacity="0.9">O+</text>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section class="section" style="background:var(--ivory);">
-    <div class="container">
-      <div class="section-title">How It Works</div>
-      <div class="divider"></div>
-      <p class="section-sub">Four simple steps from donation to divine blessings</p>
-      <div class="how-grid">
-        <div class="how-step">
-          <div class="how-step-num">1</div>
-          <div class="how-step-icon">📝</div>
-          <h3>Register & Profile</h3>
-          <p>Create your donor profile with blood group, contact info, and medical history.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-step-num">2</div>
-          <div class="how-step-icon">🩸</div>
-          <h3>Donate Blood</h3>
-          <p>Donate at any verified hospital or blood bank. Upload your donation certificate.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-step-num">3</div>
-          <div class="how-step-icon">✅</div>
-          <h3>Admin Verifies</h3>
-          <p>Our admin team reviews your proof and approves within 24–48 hours.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-step-num">4</div>
-          <div class="how-step-icon">🏛️</div>
-          <h3>Get VIP Pass</h3>
-          <p>Receive your QR-based VIP temple entry pass for free darshan.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="section" style="background:var(--white);">
-    <div class="container">
-      <div class="section-title">Platform Features</div>
-      <div class="divider"></div>
-      <div class="features-grid">
-        <div class="feature-card"><div class="feature-icon">🔐</div><h3>Secure Authentication</h3><p>Password encryption and secure sessions protect every donor's personal data.</p></div>
-        <div class="feature-card"><div class="feature-icon">📄</div><h3>Donation Records</h3><p>Track all your donations with dates, hospitals, and verification statuses.</p></div>
-        <div class="feature-card"><div class="feature-icon">📱</div><h3>QR-Based VIP Pass</h3><p>Digitally generated QR passes that temples can scan for instant validation.</p></div>
-        <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Admin Verification</h3><p>Every donation is verified by administrators before rewards are issued.</p></div>
-        <div class="feature-card"><div class="feature-icon">🔔</div><h3>Live Notifications</h3><p>Get notified when your donation is approved or your pass is ready.</p></div>
-        <div class="feature-card"><div class="feature-icon">📊</div><h3>Donor Dashboard</h3><p>A complete overview of your donation history and VIP pass collection.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section" style="background:linear-gradient(135deg,var(--crimson-dark),var(--crimson));color:white;text-align:center;">
-    <div class="container">
-      <h2 style="font-size:2.4rem;margin-bottom:1rem;color:white;">Ready to Make a Difference?</h2>
-      <p style="font-size:1.1rem;opacity:0.85;margin-bottom:2rem;max-width:540px;margin-left:auto;margin-right:auto;">Join thousands of donors who have saved lives and received divine blessings in return.</p>
-      <button class="btn btn-gold btn-lg" onclick="showPage('register')">🩸 Start Donating Today</button>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">🩸 RaktaSeva</div>
-          <p style="font-size:0.88rem;line-height:1.7;max-width:280px;">A platform connecting blood donors with divine rewards. Every drop counts, every life matters.</p>
-        </div>
-        <div>
-          <p style="color:rgba(255,255,255,0.9);font-weight:600;margin-bottom:0.75rem;font-size:0.9rem;">Quick Links</p>
-          <ul class="footer-links">
-            <li><a onclick="showPage('home')">Home</a></li>
-            <li><a onclick="showPage('about')">About Us</a></li>
-            <li><a onclick="showPage('register')">Register</a></li>
-            <li><a onclick="showPage('login')">Login</a></li>
-          </ul>
-        </div>
-        <div>
-          <p style="color:rgba(255,255,255,0.9);font-weight:600;margin-bottom:0.75rem;font-size:0.9rem;">Donor</p>
-          <ul class="footer-links">
-            <li><a onclick="showPage('donor-dashboard')">Dashboard</a></li>
-            <li><a onclick="showPage('submit-donation')">Submit Donation</a></li>
-            <li><a onclick="showPage('vip-pass')">VIP Pass</a></li>
-          </ul>
-        </div>
-        <div>
-          <p style="color:rgba(255,255,255,0.9);font-weight:600;margin-bottom:0.75rem;font-size:0.9rem;">More</p>
-          <ul class="footer-links">
-            <li><a onclick="showPage('temple-verify')">Temple Verify</a></li>
-            <li><a onclick="showPage('contact')">Contact Us</a></li>
-            <li><a onclick="showPage('admin-login')">Admin Login</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2025 RaktaSeva – Blood Donation Reward System. College Demonstration Project. Not for real medical use.</div>
-    </div>
-  </footer>
-</div>
-
-<!-- ==================== ABOUT PAGE ==================== -->
-<div class="page" id="page-about">
-  <div class="about-hero">
-    <h1>About RaktaSeva</h1>
-    <p>A college demonstration project inspiring voluntary blood donation through meaningful rewards and community recognition.</p>
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <h1>IRONPULSE</h1>
+    <p>Forge your strength. Fuel your body. Transform your life.</p>
+    <button class="hero-btn" onclick="showPage('services', document.querySelector('[onclick*=services]'))">Explore our services</button>
   </div>
-  <section class="section" style="background:var(--white);">
-    <div class="container">
-      <div class="mission-grid">
-        <div>
-          <div class="section-title">Our Mission</div>
-          <div class="divider"></div>
-          <p style="line-height:1.8;color:#555;margin-bottom:1.25rem;">RaktaSeva was built with a single purpose: to bridge the gap between voluntary blood donors and recognition. By partnering with temples to offer free VIP entry passes, we create a meaningful reward system that encourages more people to donate blood regularly.</p>
-          <p style="line-height:1.8;color:#555;margin-bottom:1.25rem;">Blood donation is one of the most selfless acts a person can perform. A single donation can save up to three lives. RaktaSeva ensures that every donor's contribution is acknowledged, verified, and rewarded.</p>
-          <div class="alert alert-info">⚠️ This is a college demonstration concept. Real-world deployment would require official hospital and temple partnerships.</div>
-        </div>
-        <div>
-          <div class="card" style="background:var(--rose);border:none;">
-            <h3 style="color:var(--crimson);margin-bottom:1.5rem;">Platform Statistics</h3>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-              <div style="background:white;padding:1.25rem;border-radius:12px;text-align:center;">
-                <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--crimson);">1,240+</div>
-                <div style="font-size:0.82rem;color:#6B6B6B;">Registered Donors</div>
-              </div>
-              <div style="background:white;padding:1.25rem;border-radius:12px;text-align:center;">
-                <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--gold);">48</div>
-                <div style="font-size:0.82rem;color:#6B6B6B;">Partner Temples</div>
-              </div>
-              <div style="background:white;padding:1.25rem;border-radius:12px;text-align:center;">
-                <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--success);">3,600+</div>
-                <div style="font-size:0.82rem;color:#6B6B6B;">Lives Saved</div>
-              </div>
-              <div style="background:white;padding:1.25rem;border-radius:12px;text-align:center;">
-                <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--crimson);">892</div>
-                <div style="font-size:0.82rem;color:#6B6B6B;">VIP Passes Issued</div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="section">
+    <div class="section-title">Why IronPulse?</div>
+    <div class="section-sub">Everything you need to reach your peak</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Active members</div>
       </div>
-    </div>
-  </section>
-  <section class="section" style="background:var(--ivory);">
-    <div class="container">
-      <div class="section-title">Future Enhancements</div>
-      <div class="divider"></div>
-      <div class="features-grid">
-        <div class="feature-card"><div class="feature-icon">📱</div><h3>Mobile Application</h3><p>A dedicated iOS and Android app for on-the-go donor management and pass access.</p></div>
-        <div class="feature-card"><div class="feature-icon">📧</div><h3>SMS & Email Alerts</h3><p>Automated notifications for verification status, pass expiry, and donation reminders.</p></div>
-        <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Fraud Detection</h3><p>Machine learning algorithms to detect and prevent fraudulent donation certificate uploads.</p></div>
-        <div class="feature-card"><div class="feature-icon">🏥</div><h3>Hospital Integration</h3><p>Direct API integration with hospitals for real-time donation verification.</p></div>
-        <div class="feature-card"><div class="feature-icon">🏛️</div><h3>More Temple Partners</h3><p>Expanding to hundreds of temples across Gujarat, Rajasthan, and Maharashtra.</p></div>
-        <div class="feature-card"><div class="feature-icon">📜</div><h3>Digital Certificates</h3><p>Blockchain-based digital blood donation certificates that are tamper-proof.</p></div>
+      <div class="stat-card">
+        <div class="stat-icon">🏅</div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Expert trainers</div>
       </div>
-    </div>
-  </section>
-</div>
-
-<!-- ==================== REGISTER PAGE ==================== -->
-<div class="page" id="page-register">
-  <div class="auth-wrap">
-    <div class="auth-left">
-      <div class="auth-left-drop">
-        <svg width="80" height="100" viewBox="0 0 80 100"><path d="M40 5C40 5 5 40 5 60C5 79.33 20.67 95 40 95C59.33 95 75 79.33 75 60C75 40 40 5 40 5Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/></svg>
+      <div class="stat-card">
+        <div class="stat-icon">🕐</div>
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Open all week</div>
       </div>
-      <h2>Join RaktaSeva</h2>
-      <p>Register as a blood donor and earn VIP temple passes. Your blood donation saves lives and opens sacred doors of blessings.</p>
-      <div style="margin-top:2rem;display:flex;flex-direction:column;gap:0.75rem;">
-        <div style="display:flex;align-items:center;gap:0.75rem;color:rgba(255,255,255,0.85);font-size:0.92rem;"><span>✅</span> Free registration</div>
-        <div style="display:flex;align-items:center;gap:0.75rem;color:rgba(255,255,255,0.85);font-size:0.92rem;"><span>✅</span> QR-based VIP pass</div>
-        <div style="display:flex;align-items:center;gap:0.75rem;color:rgba(255,255,255,0.85);font-size:0.92rem;"><span>✅</span> Admin-verified system</div>
-        <div style="display:flex;align-items:center;gap:0.75rem;color:rgba(255,255,255,0.85);font-size:0.92rem;"><span>✅</span> Donation history</div>
-      </div>
-    </div>
-    <div class="auth-right">
-      <div class="auth-form-wrap">
-        <h3>Create Account</h3>
-        <p class="sub">Join thousands of blood donors today</p>
-        <div id="reg-success" class="alert alert-success" style="display:none;">🎉 Registration successful! Please login.</div>
-        <div class="form-row">
-          <div class="form-group"><label>Full Name</label><input class="form-control" placeholder="Ravi Sharma" type="text"></div>
-          <div class="form-group"><label>Email</label><input class="form-control" placeholder="ravi@email.com" type="email"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>Phone Number</label><input class="form-control" placeholder="+91 98765 43210" type="tel"></div>
-          <div class="form-group"><label>Blood Group</label>
-            <select class="form-control">
-              <option value="">Select Blood Group</option>
-              <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
-              <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group"><label>Date of Birth</label><input class="form-control" type="date"></div>
-        <div class="form-group"><label>City</label><input class="form-control" placeholder="Bhuj, Gujarat" type="text"></div>
-        <div class="form-row">
-          <div class="form-group"><label>Password</label><input class="form-control" placeholder="••••••••" type="password"></div>
-          <div class="form-group"><label>Confirm Password</label><input class="form-control" placeholder="••••••••" type="password"></div>
-        </div>
-        <div class="form-group" style="display:flex;align-items:flex-start;gap:0.5rem;">
-          <input type="checkbox" id="terms" style="margin-top:3px;">
-          <label for="terms" style="text-transform:none;letter-spacing:0;font-weight:400;font-size:0.88rem;color:#555;">I agree to the Terms of Service and confirm that I am 18+ years old and eligible to donate blood.</label>
-        </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="document.getElementById('reg-success').style.display='flex';">Create Account</button>
-        <div class="auth-switch">Already have an account? <a onclick="showPage('login')">Sign in</a></div>
+      <div class="stat-card">
+        <div class="stat-icon">❤️</div>
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Years of excellence</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== LOGIN PAGE ==================== -->
-<div class="page" id="page-login">
-  <div class="auth-wrap">
-    <div class="auth-left">
-      <div class="auth-left-drop">
-        <svg width="80" height="100" viewBox="0 0 80 100"><path d="M40 5C40 5 5 40 5 60C5 79.33 20.67 95 40 95C59.33 95 75 79.33 75 60C75 40 40 5 40 5Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/></svg>
+<!-- SERVICES -->
+<div id="page-services" class="page">
+  <div class="section">
+    <div class="section-title">Our services</div>
+    <div class="section-sub">Comprehensive programs tailored to your fitness goals</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏋️</div>
+        <h3>Muscle gain</h3>
+        <p>Structured strength training with progressive overload to build lean muscle mass effectively.</p>
       </div>
-      <h2>Welcome Back, Donor</h2>
-      <p>Sign in to access your dashboard, check your VIP pass status, and manage your blood donation records.</p>
-    </div>
-    <div class="auth-right">
-      <div class="auth-form-wrap">
-        <h3>Donor Login</h3>
-        <p class="sub">Access your RaktaSeva account</p>
-        <div class="form-group"><label>Email Address</label><input class="form-control" placeholder="your@email.com" type="email"></div>
-        <div class="form-group"><label>Password</label><input class="form-control" placeholder="••••••••" type="password"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
-          <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.88rem;color:#555;cursor:pointer;"><input type="checkbox"> Remember me</label>
-          <a style="font-size:0.88rem;color:var(--crimson);cursor:pointer;font-weight:500;">Forgot password?</a>
-        </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="showPage('donor-dashboard')">Sign In</button>
-        <div style="text-align:center;margin:1.5rem 0;color:#9E9E9E;font-size:0.85rem;position:relative;"><span style="background:white;padding:0 1rem;position:relative;z-index:1;">or</span><div style="position:absolute;top:50%;left:0;right:0;height:1px;background:#E0D8D0;z-index:0;"></div></div>
-        <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="showPage('admin-login')">🔑 Admin Login</button>
-        <div class="auth-switch">New donor? <a onclick="showPage('register')">Register here</a></div>
+      <div class="service-card">
+        <div class="service-icon">🥗</div>
+        <h3>Nutrition coaching</h3>
+        <p>Personalized meal plans and macro guidance by certified nutritionists to fuel your performance.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏃</div>
+        <h3>Cardio & endurance</h3>
+        <p>HIIT, steady-state cardio, and endurance programs to boost stamina and burn fat efficiently.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👤</div>
+        <h3>Personal training</h3>
+        <p>One-on-one sessions with a dedicated coach for maximum results in minimum time.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧘</div>
+        <h3>Flexibility & recovery</h3>
+        <p>Yoga, stretching, and foam rolling sessions to improve mobility and speed up muscle recovery.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Progress tracking</h3>
+        <p>Body composition analysis, strength benchmarks, and monthly fitness assessments to keep you on track.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== DONOR DASHBOARD ==================== -->
-<div class="page" id="page-donor-dashboard">
-  <div class="dash-layout">
-    <aside class="dash-sidebar">
-      <div class="dash-profile">
-        <div class="dash-avatar">R</div>
-        <h4>Ravi Sharma</h4>
-        <p>ravi@email.com</p>
-        <span class="dash-blood-badge">O+</span>
+<!-- PRICING -->
+<div id="page-pricing" class="page">
+  <div class="section">
+    <div class="section-title">Membership plans</div>
+    <div class="section-sub">Flexible options for every goal and budget</div>
+    <div class="pricing-grid">
+      <div class="plan-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">₹999 <span>/month</span></div>
+        <ul class="plan-features">
+          <li>Gym floor access</li>
+          <li>Cardio equipment</li>
+          <li>Locker room</li>
+          <li>2 group classes/month</li>
+        </ul>
+        <button class="plan-btn outline" onclick="showPage('contact', document.querySelector('[onclick*=contact]'))">Get started</button>
       </div>
-      <ul class="sidebar-nav">
-        <li><a class="active" onclick="showDashSection('overview')"><span class="nav-icon">📊</span> Overview</a></li>
-        <li><a onclick="showDashSection('donations')"><span class="nav-icon">🩸</span> My Donations</a></li>
-        <li><a onclick="showPage('submit-donation')"><span class="nav-icon">➕</span> Submit Donation</a></li>
-        <li><a onclick="showPage('vip-pass')"><span class="nav-icon">🎫</span> VIP Passes</a></li>
-        <li><a onclick="showDashSection('notifications')"><span class="nav-icon">🔔</span> Notifications</a></li>
-        <li><a onclick="showDashSection('profile')"><span class="nav-icon">👤</span> My Profile</a></li>
-        <li style="margin-top:2rem;"><a onclick="showPage('home')" style="color:var(--crimson);"><span class="nav-icon">🚪</span> Logout</a></li>
-      </ul>
-    </aside>
-    <main class="dash-main">
-      <!-- OVERVIEW -->
-      <div id="dash-overview">
-        <div class="dash-header">
-          <h2>Good Morning, Ravi! 🌅</h2>
-          <p>Here's an overview of your donation activity</p>
-        </div>
-        <div class="stats-row">
-          <div class="stat-card"><div class="stat-icon red">🩸</div><div><div class="stat-num">4</div><div class="stat-label">Total Donations</div></div></div>
-          <div class="stat-card"><div class="stat-icon gold">🎫</div><div><div class="stat-num">2</div><div class="stat-label">VIP Passes</div></div></div>
-          <div class="stat-card"><div class="stat-icon green">✅</div><div><div class="stat-num">3</div><div class="stat-label">Verified</div></div></div>
-          <div class="stat-card"><div class="stat-icon blue">⏳</div><div><div class="stat-num">1</div><div class="stat-label">Pending</div></div></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;">
-          <div class="card">
-            <h4 style="margin-bottom:1.25rem;">Recent Donations</h4>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Hospital</th><th>Date</th><th>Status</th></tr></thead>
-                <tbody>
-                  <tr><td>Civil Hospital, Bhuj</td><td>15 Jun 2025</td><td><span class="badge badge-approved">Approved</span></td></tr>
-                  <tr><td>G.K. General Hospital</td><td>10 Jan 2025</td><td><span class="badge badge-approved">Approved</span></td></tr>
-                  <tr><td>Red Cross, Ahmedabad</td><td>22 Aug 2024</td><td><span class="badge badge-approved">Approved</span></td></tr>
-                  <tr><td>Kutch Blood Bank</td><td>3 Jun 2025</td><td><span class="badge badge-pending">Pending</span></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card" style="background:var(--rose);border:none;">
-            <h4 style="margin-bottom:1rem;color:var(--crimson);">Active VIP Pass</h4>
-            <div style="background:white;border-radius:12px;padding:1.25rem;margin-bottom:1rem;">
-              <div style="font-size:0.78rem;color:#9E9E9E;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;">Pass ID</div>
-              <div style="font-weight:700;color:var(--crimson);">RS-2025-00892</div>
-              <div style="font-size:0.82rem;color:#6B6B6B;margin-top:0.5rem;">Valid till: 15 Sep 2025</div>
-              <span class="badge badge-approved" style="margin-top:0.5rem;">Active</span>
-            </div>
-            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center;" onclick="showPage('vip-pass')">View Full Pass →</button>
-          </div>
-        </div>
+      <div class="plan-card featured">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">₹1,999 <span>/month</span></div>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Unlimited group classes</li>
+          <li>Nutrition coaching</li>
+          <li>4 personal sessions/month</li>
+          <li>Progress tracking</li>
+        </ul>
+        <button class="plan-btn" onclick="showPage('contact', document.querySelector('[onclick*=contact]'))">Get started</button>
       </div>
-      <!-- DONATIONS -->
-      <div id="dash-donations" style="display:none;">
-        <div class="dash-header"><h2>My Donations</h2><p>Complete blood donation history</p></div>
-        <div class="card">
-          <div class="admin-table-header">
-            <h3>Donation Records</h3>
-            <button class="btn btn-primary btn-sm" onclick="showPage('submit-donation')">+ New Donation</button>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>#</th><th>Hospital Name</th><th>Date</th><th>Certificate</th><th>Status</th><th>VIP Pass</th></tr></thead>
-              <tbody>
-                <tr><td>001</td><td>Civil Hospital, Bhuj</td><td>15 Jun 2025</td><td>📄 View</td><td><span class="badge badge-approved">Approved</span></td><td><span class="badge badge-gold">Issued</span></td></tr>
-                <tr><td>002</td><td>G.K. General Hospital</td><td>10 Jan 2025</td><td>📄 View</td><td><span class="badge badge-approved">Approved</span></td><td><span class="badge badge-gold">Issued</span></td></tr>
-                <tr><td>003</td><td>Red Cross, Ahmedabad</td><td>22 Aug 2024</td><td>📄 View</td><td><span class="badge badge-approved">Approved</span></td><td><span class="badge badge-gold">Issued</span></td></tr>
-                <tr><td>004</td><td>Kutch Blood Bank</td><td>3 Jun 2025</td><td>📄 View</td><td><span class="badge badge-pending">Pending</span></td><td>—</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="plan-card">
+        <div class="plan-name">Elite</div>
+        <div class="plan-price">₹3,499 <span>/month</span></div>
+        <ul class="plan-features">
+          <li>Everything in Pro</li>
+          <li>Unlimited personal sessions</li>
+          <li>Custom meal plans</li>
+          <li>Recovery & flexibility</li>
+          <li>Priority booking</li>
+        </ul>
+        <button class="plan-btn outline" onclick="showPage('contact', document.querySelector('[onclick*=contact]'))">Get started</button>
       </div>
-      <!-- NOTIFICATIONS -->
-      <div id="dash-notifications" style="display:none;">
-        <div class="dash-header"><h2>Notifications</h2><p>Stay updated on your donation status</p></div>
-        <div class="notif-item green">
-          <div class="notif-dot green"></div>
-          <div class="notif-content"><h5>VIP Pass Issued 🎫</h5><p>Your VIP temple pass RS-2025-00892 has been issued for Civil Hospital donation.</p></div>
-          <div class="notif-time">2h ago</div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-dot"></div>
-          <div class="notif-content"><h5>Donation Submitted</h5><p>Your blood donation at Kutch Blood Bank is under review by our admin team.</p></div>
-          <div class="notif-time">1 day ago</div>
-        </div>
-        <div class="notif-item gold">
-          <div class="notif-dot gold"></div>
-          <div class="notif-content"><h5>Donation Verified ✅</h5><p>Your G.K. General Hospital donation has been verified. VIP pass will be issued soon.</p></div>
-          <div class="notif-time">3 days ago</div>
-        </div>
-        <div class="notif-item green">
-          <div class="notif-dot green"></div>
-          <div class="notif-content"><h5>Welcome to RaktaSeva! 🎉</h5><p>Your account has been created successfully. Start by submitting a blood donation record.</p></div>
-          <div class="notif-time">5 days ago</div>
-        </div>
-      </div>
-      <!-- PROFILE -->
-      <div id="dash-profile" style="display:none;">
-        <div class="dash-header"><h2>My Profile</h2><p>Manage your donor information</p></div>
-        <div class="card" style="max-width:600px;">
-          <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--ivory-dark);">
-            <div class="dash-avatar" style="width:90px;height:90px;font-size:2.4rem;">R</div>
-            <div><h3>Ravi Sharma</h3><p style="color:#6B6B6B;">Registered Donor since March 2024</p><span class="badge badge-approved" style="margin-top:0.5rem;">Active Donor</span></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Full Name</label><input class="form-control" value="Ravi Sharma"></div>
-            <div class="form-group"><label>Email</label><input class="form-control" value="ravi@email.com" type="email"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Phone</label><input class="form-control" value="+91 98765 43210"></div>
-            <div class="form-group"><label>Blood Group</label><select class="form-control"><option selected>O+</option><option>A+</option></select></div>
-          </div>
-          <div class="form-group"><label>City</label><input class="form-control" value="Bhuj, Gujarat"></div>
-          <button class="btn btn-primary">Save Changes</button>
-        </div>
-      </div>
-    </main>
+    </div>
   </div>
 </div>
 
-<!-- ==================== SUBMIT DONATION ==================== -->
-<div class="page" id="page-submit-donation">
-  <section class="section">
-    <div class="container-sm">
-      <div class="section-title">Submit Blood Donation</div>
-      <div class="divider"></div>
-      <p class="section-sub" style="margin-bottom:2rem;">Fill in your blood donation details and upload your certificate for verification.</p>
-      <div id="submit-success" class="alert alert-success" style="display:none;">✅ Donation submitted! Admin will verify within 24-48 hours.</div>
-      <div class="card">
-        <div class="form-group"><label>Hospital / Blood Bank Name</label><input class="form-control" placeholder="e.g. Civil Hospital, Bhuj"></div>
+<!-- CONTACT -->
+<div id="page-contact" class="page">
+  <div class="section">
+    <div class="section-title">Contact us</div>
+    <div class="section-sub">We'd love to hear from you — reach out to join or ask anything</div>
+    <div class="contact-layout">
+      <div class="contact-form">
         <div class="form-row">
-          <div class="form-group"><label>Donation Date</label><input class="form-control" type="date"></div>
-          <div class="form-group"><label>City</label><input class="form-control" placeholder="Bhuj"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>State</label><input class="form-control" placeholder="Gujarat"></div>
-          <div class="form-group"><label>Blood Group Donated</label>
-            <select class="form-control"><option>O+</option><option>A+</option><option>B+</option><option>AB+</option></select>
+          <div class="form-group" style="margin:0">
+            <label>Your name</label>
+            <input type="text" placeholder="e.g. Rahul Shah">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Phone number</label>
+            <input type="tel" placeholder="+91 98765 43210">
           </div>
         </div>
-        <div class="form-group"><label>Doctor / Staff Name (Optional)</label><input class="form-control" placeholder="Dr. Patel"></div>
-        <div class="form-group"><label>Additional Notes</label><textarea class="form-control" rows="3" placeholder="Any other relevant information..."></textarea></div>
         <div class="form-group">
-          <label>Upload Donation Certificate / Proof</label>
-          <div class="upload-area" onclick="alert('File picker would open here')">
-            <div class="upload-icon">📄</div>
-            <p><strong>Click to upload</strong> or drag and drop</p>
-            <p style="margin-top:0.4rem;font-size:0.82rem;">PDF, JPG, PNG up to 5MB</p>
+          <label>Email address</label>
+          <input type="email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Interested in</label>
+          <select>
+            <option>Muscle gain</option>
+            <option>Nutrition coaching</option>
+            <option>Personal training</option>
+            <option>Cardio & endurance</option>
+            <option>Membership inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your fitness goals..."></textarea>
+        </div>
+        <button class="submit-btn">Send message</button>
+      </div>
+      <div class="contact-info">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>IronPulse Gym, Near Race Course,<br>Rajkot, Gujarat 360001</p>
           </div>
         </div>
-        <div class="alert alert-info" style="margin-top:0.5rem;">ℹ️ Your submission will be reviewed within 24-48 hours. You will receive a notification once verified.</div>
-        <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:0.75rem;" onclick="document.getElementById('submit-success').style.display='flex';window.scrollTo(0,0);">Submit Donation 🩸</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ==================== VIP PASS PAGE ==================== -->
-<div class="page" id="page-vip-pass">
-  <section class="section" style="background:linear-gradient(135deg,#F5F0EA,#FAF7F2);">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:3rem;">
-        <div class="section-title" style="justify-content:center;">🎫 Your VIP Temple Passes</div>
-        <div class="divider" style="margin:1rem auto 2rem;"></div>
-        <p style="color:#6B6B6B;">Present the QR code at any participating temple for free VIP darshan entry</p>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;max-width:900px;margin:0 auto;">
-        <!-- Pass Card -->
-        <div class="pass-wrap">
-          <div class="pass-header">
-            <div class="pass-logo">🩸 RaktaSeva</div>
-            <div class="pass-title">VIP Temple Entry Pass</div>
-            <div class="pass-subtitle">Donor Reward Program</div>
-          </div>
-          <div class="pass-body">
-            <div class="pass-info">
-              <div class="pass-name">Ravi Sharma</div>
-              <div class="pass-detail">🩸 Blood Group: O+</div>
-              <div class="pass-detail">📍 Civil Hospital, Bhuj</div>
-              <div class="pass-detail">📅 Donated: 15 Jun 2025</div>
-              <div class="pass-blood">O+ Donor</div>
-            </div>
-            <div class="pass-qr">
-              <!-- Simple CSS QR Code simulation -->
-              <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100" height="100" fill="white"/>
-                <!-- QR finder patterns -->
-                <rect x="5" y="5" width="30" height="30" fill="#1C1C1E" rx="2"/>
-                <rect x="8" y="8" width="24" height="24" fill="white" rx="1"/>
-                <rect x="11" y="11" width="18" height="18" fill="#1C1C1E" rx="1"/>
-                <rect x="65" y="5" width="30" height="30" fill="#1C1C1E" rx="2"/>
-                <rect x="68" y="8" width="24" height="24" fill="white" rx="1"/>
-                <rect x="71" y="11" width="18" height="18" fill="#1C1C1E" rx="1"/>
-                <rect x="5" y="65" width="30" height="30" fill="#1C1C1E" rx="2"/>
-                <rect x="8" y="68" width="24" height="24" fill="white" rx="1"/>
-                <rect x="11" y="71" width="18" height="18" fill="#1C1C1E" rx="1"/>
-                <!-- Data modules -->
-                <rect x="40" y="5" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="50" y="5" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="45" y="15" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="40" y="25" width="10" height="5" fill="#1C1C1E"/>
-                <rect x="40" y="40" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="50" y="40" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="60" y="40" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="40" y="50" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="55" y="50" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="45" y="60" width="10" height="5" fill="#1C1C1E"/>
-                <rect x="40" y="70" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="50" y="75" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="60" y="70" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="60" y="80" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="65" y="50" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="75" y="45" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="85" y="50" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="75" y="60" width="5" height="5" fill="#1C1C1E"/>
-                <rect x="80" y="70" width="5" height="5" fill="#1C1C1E"/>
-              </svg>
-            </div>
-          </div>
-          <div class="pass-footer">
-            <div><div class="f-label">Pass ID</div><div class="f-value">RS-2025-00892</div></div>
-            <div><div class="f-label">Valid Until</div><div class="f-value pass-valid">15 Sep 2025</div></div>
-            <div><div class="f-label">Status</div><div class="f-value">✅ Active</div></div>
+        <div class="info-card">
+          <div class="info-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p>+91 98765 43210</p>
           </div>
         </div>
-        <!-- Pass Info -->
-        <div>
-          <h3 style="font-size:1.5rem;margin-bottom:1.25rem;color:var(--crimson);">How to Use Your Pass</h3>
-          <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;">
-            <div style="display:flex;gap:1rem;align-items:flex-start;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--crimson);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</div>
-              <div><h5 style="margin-bottom:0.2rem;">Visit Participating Temple</h5><p style="font-size:0.88rem;color:#6B6B6B;">Go to any of our 48+ partner temples across Gujarat and Rajasthan.</p></div>
-            </div>
-            <div style="display:flex;gap:1rem;align-items:flex-start;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--crimson);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</div>
-              <div><h5 style="margin-bottom:0.2rem;">Show Your QR Pass</h5><p style="font-size:0.88rem;color:#6B6B6B;">Present this page or download the pass at the temple VIP counter.</p></div>
-            </div>
-            <div style="display:flex;gap:1rem;align-items:flex-start;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--crimson);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">3</div>
-              <div><h5 style="margin-bottom:0.2rem;">Temple Staff Scans QR</h5><p style="font-size:0.88rem;color:#6B6B6B;">The temple staff will scan and verify your pass instantly.</p></div>
-            </div>
-            <div style="display:flex;gap:1rem;align-items:flex-start;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">✓</div>
-              <div><h5 style="margin-bottom:0.2rem;">Enjoy Free VIP Entry</h5><p style="font-size:0.88rem;color:#6B6B6B;">Skip the regular queue and enjoy your blessings as a token of gratitude for saving lives.</p></div>
-            </div>
-          </div>
-          <button class="btn btn-gold" onclick="window.print()">📥 Download Pass</button>
-          <div class="alert alert-info" style="margin-top:1.25rem;">Pass valid for 90 days from donation approval date. One-time use per temple visit.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ==================== TEMPLE VERIFY ==================== -->
-<div class="page" id="page-temple-verify">
-  <section class="section">
-    <div class="container-sm">
-      <div style="text-align:center;margin-bottom:2.5rem;">
-        <div class="section-title" style="text-align:center;">🏛️ Temple Verification Portal</div>
-        <div class="divider" style="margin:1rem auto 2rem;"></div>
-        <p style="color:#6B6B6B;">Scan or enter the donor's QR pass ID to verify and grant VIP entry</p>
-      </div>
-      <div class="card" style="text-align:center;margin-bottom:2rem;">
-        <h4 style="margin-bottom:1.5rem;">Scan QR Code</h4>
-        <div class="scan-frame">
-          <div class="scan-line"></div>
-          <div class="scan-corner tl"></div>
-          <div class="scan-corner tr"></div>
-          <div class="scan-corner bl"></div>
-          <div class="scan-corner br"></div>
-          <div class="scan-content">📷<br><br>Point camera at<br>donor's QR code</div>
-        </div>
-        <p style="margin-top:1.25rem;font-size:0.88rem;color:#6B6B6B;">Camera access required for QR scanning</p>
-        <button class="btn btn-primary" style="margin-top:0.75rem;">📷 Start Camera Scan</button>
-      </div>
-      <div class="card">
-        <h4 style="margin-bottom:1.25rem;">Manual Pass Verification</h4>
-        <div class="form-group"><label>Enter Pass ID</label><input class="form-control" placeholder="e.g. RS-2025-00892" id="verify-input"></div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="verifyPass()">Verify Pass</button>
-        <div id="verify-result-valid" style="display:none;margin-top:1.5rem;" class="alert alert-success">
-          ✅ <strong>Pass Valid!</strong> — Ravi Sharma (O+) | Donated: 15 Jun 2025 | Valid till: 15 Sep 2025 | Grant VIP entry.
-        </div>
-        <div id="verify-result-invalid" style="display:none;margin-top:1.5rem;" class="alert alert-error">
-          ❌ <strong>Pass Not Found.</strong> Please check the Pass ID and try again.
-        </div>
-      </div>
-      <div class="card" style="margin-top:1.5rem;">
-        <h4 style="margin-bottom:1.25rem;">Today's Entry Log</h4>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Time</th><th>Pass ID</th><th>Donor Name</th><th>Blood Group</th><th>Result</th></tr></thead>
-            <tbody>
-              <tr><td>10:32 AM</td><td>RS-2025-00871</td><td>Meena Patel</td><td>A+</td><td><span class="badge badge-approved">Granted</span></td></tr>
-              <tr><td>09:15 AM</td><td>RS-2025-00844</td><td>Suresh Modi</td><td>B+</td><td><span class="badge badge-approved">Granted</span></td></tr>
-              <tr><td>08:47 AM</td><td>RS-2025-00802</td><td>Priya Shah</td><td>O-</td><td><span class="badge badge-approved">Granted</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ==================== CONTACT PAGE ==================== -->
-<div class="page" id="page-contact">
-  <div style="background:linear-gradient(135deg,var(--crimson-dark),var(--crimson));color:white;padding:4rem 2rem;text-align:center;">
-    <h1 style="font-size:2.5rem;margin-bottom:0.75rem;">Contact Us</h1>
-    <p style="opacity:0.85;font-size:1.05rem;">Questions? We're here to help donors and temples.</p>
-  </div>
-  <section class="section">
-    <div class="container">
-      <div class="contact-grid">
-        <div>
-          <h3 style="font-size:1.5rem;margin-bottom:1.5rem;color:var(--crimson);">Get In Touch</h3>
-          <div class="contact-info-item">
-            <div class="contact-icon">📍</div>
-            <div class="contact-detail"><h4>Address</h4><p>RaktaSeva Foundation<br>Bhuj, Kutch, Gujarat – 370001</p></div>
-          </div>
-          <div class="contact-info-item">
-            <div class="contact-icon">📞</div>
-            <div class="contact-detail"><h4>Phone</h4><p>+91 98765 43210<br>Mon–Sat, 9 AM – 6 PM</p></div>
-          </div>
-          <div class="contact-info-item">
-            <div class="contact-icon">✉️</div>
-            <div class="contact-detail"><h4>Email</h4><p>support@raktaseva.org<br>admin@raktaseva.org</p></div>
-          </div>
-          <div class="contact-info-item">
-            <div class="contact-icon">🕐</div>
-            <div class="contact-detail"><h4>Working Hours</h4><p>Monday – Saturday<br>9:00 AM – 6:00 PM IST</p></div>
+        <div class="info-card">
+          <div class="info-icon">🕐</div>
+          <div>
+            <h4>Hours</h4>
+            <p>Mon–Sat: 5:00 AM – 11:00 PM<br>Sunday: 7:00 AM – 9:00 PM</p>
           </div>
         </div>
-        <div class="card">
-          <h4 style="margin-bottom:1.5rem;">Send a Message</h4>
-          <div id="contact-success" class="alert alert-success" style="display:none;">✅ Message sent! We'll reply within 24 hours.</div>
-          <div class="form-row">
-            <div class="form-group"><label>Your Name</label><input class="form-control" placeholder="Ravi Sharma"></div>
-            <div class="form-group"><label>Email</label><input class="form-control" placeholder="ravi@email.com" type="email"></div>
+        <div class="info-card">
+          <div class="info-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p>info@ironpulse.in</p>
           </div>
-          <div class="form-group"><label>Subject</label>
-            <select class="form-control">
-              <option>Donation Verification Issue</option>
-              <option>VIP Pass Problem</option>
-              <option>Temple Partnership</option>
-              <option>Technical Support</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group"><label>Message</label><textarea class="form-control" rows="5" placeholder="Describe your query in detail..."></textarea></div>
-          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="document.getElementById('contact-success').style.display='flex';">Send Message →</button>
         </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ==================== ADMIN LOGIN ==================== -->
-<div class="page" id="page-admin-login">
-  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ivory);padding:2rem;">
-    <div style="width:100%;max-width:420px;">
-      <div style="text-align:center;margin-bottom:2rem;">
-        <div style="width:70px;height:70px;background:var(--crimson);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem;">🔑</div>
-        <h2 style="font-size:1.8rem;margin-bottom:0.3rem;">Admin Login</h2>
-        <p style="color:#6B6B6B;font-size:0.92rem;">RaktaSeva Administration Panel</p>
-      </div>
-      <div class="card">
-        <div class="form-group"><label>Admin Username</label><input class="form-control" placeholder="admin" type="text"></div>
-        <div class="form-group"><label>Password</label><input class="form-control" placeholder="••••••••" type="password"></div>
-        <div class="alert alert-info" style="margin-bottom:1.25rem;">🔒 This portal is restricted to authorized administrators only.</div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="showPage('admin-dashboard')">Access Admin Panel</button>
-        <div style="text-align:center;margin-top:1.25rem;"><a onclick="showPage('login')" style="font-size:0.88rem;color:var(--crimson);cursor:pointer;">← Back to Donor Login</a></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== ADMIN DASHBOARD ==================== -->
-<div class="page" id="page-admin-dashboard">
-  <div class="dash-layout">
-    <aside class="dash-sidebar">
-      <div class="dash-profile">
-        <div class="dash-avatar" style="background:linear-gradient(135deg,var(--charcoal),var(--charcoal-soft));">A</div>
-        <h4>Admin</h4>
-        <p>admin@raktaseva.org</p>
-        <span class="dash-blood-badge" style="background:var(--gold);">Super Admin</span>
-      </div>
-      <ul class="sidebar-nav">
-        <li><a class="active" onclick="showAdminSection('overview')"><span class="nav-icon">📊</span> Dashboard</a></li>
-        <li><a onclick="showAdminSection('verify')"><span class="nav-icon">✅</span> Verify Donations</a></li>
-        <li><a onclick="showAdminSection('donors')"><span class="nav-icon">👥</span> All Donors</a></li>
-        <li><a onclick="showAdminSection('passes')"><span class="nav-icon">🎫</span> VIP Passes</a></li>
-        <li><a onclick="showAdminSection('temples')"><span class="nav-icon">🏛️</span> Temples</a></li>
-        <li style="margin-top:2rem;"><a onclick="showPage('home')" style="color:var(--crimson);"><span class="nav-icon">🚪</span> Logout</a></li>
-      </ul>
-    </aside>
-    <main class="dash-main">
-      <!-- ADMIN OVERVIEW -->
-      <div id="admin-overview">
-        <div class="dash-header"><h2>Admin Dashboard</h2><p>Overview of the RaktaSeva platform</p></div>
-        <div class="stats-row">
-          <div class="stat-card"><div class="stat-icon blue">👥</div><div><div class="stat-num">1,240</div><div class="stat-label">Total Donors</div></div></div>
-          <div class="stat-card"><div class="stat-icon red">🩸</div><div><div class="stat-num">18</div><div class="stat-label">Pending Verifications</div></div></div>
-          <div class="stat-card"><div class="stat-icon gold">🎫</div><div><div class="stat-num">892</div><div class="stat-label">Passes Issued</div></div></div>
-          <div class="stat-card"><div class="stat-icon green">🏛️</div><div><div class="stat-num">48</div><div class="stat-label">Partner Temples</div></div></div>
-        </div>
-        <div class="card">
-          <h4 style="margin-bottom:1.25rem;">Recent Donation Submissions</h4>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Donor</th><th>Hospital</th><th>Date</th><th>Blood Group</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody>
-                <tr><td>Ravi Sharma</td><td>Kutch Blood Bank</td><td>3 Jun 2025</td><td>O+</td><td><span class="badge badge-pending">Pending</span></td><td><button class="btn btn-sm btn-primary" onclick="alert('Approved!')">Approve</button></td></tr>
-                <tr><td>Meena Patel</td><td>Civil Hospital, Rajkot</td><td>1 Jun 2025</td><td>A+</td><td><span class="badge badge-pending">Pending</span></td><td><button class="btn btn-sm btn-primary" onclick="alert('Approved!')">Approve</button></td></tr>
-                <tr><td>Suresh Modi</td><td>Red Cross, Surat</td><td>28 May 2025</td><td>B+</td><td><span class="badge badge-approved">Approved</span></td><td>—</td></tr>
-                <tr><td>Priya Shah</td><td>GMERS Hospital</td><td>25 May 2025</td><td>O-</td><td><span class="badge badge-approved">Approved</span></td><td>—</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- ADMIN VERIFY -->
-      <div id="admin-verify" style="display:none;">
-        <div class="dash-header"><h2>Verify Donations</h2><p>Review and approve blood donation submissions</p></div>
-        <div class="verification-card">
-          <div class="cert-preview">📄</div>
-          <div class="cert-info">
-            <h4>Ravi Sharma — Kutch Blood Bank</h4>
-            <p>🩸 O+ &nbsp;|&nbsp; 📅 3 Jun 2025 &nbsp;|&nbsp; 📍 Bhuj, Gujarat</p>
-            <span class="badge badge-pending" style="margin-top:0.4rem;">Pending Review</span>
-          </div>
-          <div class="cert-actions">
-            <button class="btn btn-sm btn-primary" onclick="alert('Donation approved! VIP pass will be generated.')">✅ Approve</button>
-            <button class="btn btn-sm btn-outline" onclick="alert('Donation rejected.')">❌ Reject</button>
-          </div>
-        </div>
-        <div class="verification-card">
-          <div class="cert-preview">📄</div>
-          <div class="cert-info">
-            <h4>Meena Patel — Civil Hospital, Rajkot</h4>
-            <p>🩸 A+ &nbsp;|&nbsp; 📅 1 Jun 2025 &nbsp;|&nbsp; 📍 Rajkot, Gujarat</p>
-            <span class="badge badge-pending" style="margin-top:0.4rem;">Pending Review</span>
-          </div>
-          <div class="cert-actions">
-            <button class="btn btn-sm btn-primary" onclick="alert('Donation approved! VIP pass will be generated.')">✅ Approve</button>
-            <button class="btn btn-sm btn-outline" onclick="alert('Donation rejected.')">❌ Reject</button>
-          </div>
-        </div>
-        <div class="verification-card">
-          <div class="cert-preview">📄</div>
-          <div class="cert-info">
-            <h4>Vikram Joshi — Red Cross, Vadodara</h4>
-            <p>🩸 AB+ &nbsp;|&nbsp; 📅 30 May 2025 &nbsp;|&nbsp; 📍 Vadodara, Gujarat</p>
-            <span class="badge badge-pending" style="margin-top:0.4rem;">Pending Review</span>
-          </div>
-          <div class="cert-actions">
-            <button class="btn btn-sm btn-primary" onclick="alert('Donation approved! VIP pass will be generated.')">✅ Approve</button>
-            <button class="btn btn-sm btn-outline" onclick="alert('Donation rejected.')">❌ Reject</button>
-          </div>
-        </div>
-      </div>
-      <!-- ADMIN DONORS -->
-      <div id="admin-donors" style="display:none;">
-        <div class="dash-header"><h2>All Donors</h2><p>Manage registered blood donors</p></div>
-        <div class="card">
-          <div class="admin-table-header">
-            <h3>Donor Registry</h3>
-            <input class="form-control" placeholder="🔍 Search donors..." style="width:220px;">
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Blood Group</th><th>City</th><th>Donations</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>#001</td><td>Ravi Sharma</td><td>ravi@email.com</td><td>O+</td><td>Bhuj</td><td>4</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>#002</td><td>Meena Patel</td><td>meena@email.com</td><td>A+</td><td>Rajkot</td><td>2</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>#003</td><td>Suresh Modi</td><td>suresh@email.com</td><td>B+</td><td>Surat</td><td>5</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>#004</td><td>Priya Shah</td><td>priya@email.com</td><td>O-</td><td>Ahmedabad</td><td>1</td><td><span class="badge badge-pending">Pending</span></td></tr>
-                <tr><td>#005</td><td>Vikram Joshi</td><td>vikram@email.com</td><td>AB+</td><td>Vadodara</td><td>3</td><td><span class="badge badge-approved">Active</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- ADMIN PASSES -->
-      <div id="admin-passes" style="display:none;">
-        <div class="dash-header"><h2>VIP Passes</h2><p>Manage all issued VIP temple entry passes</p></div>
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Pass ID</th><th>Donor</th><th>Issue Date</th><th>Expiry</th><th>Temple Used</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>RS-2025-00892</td><td>Ravi Sharma</td><td>16 Jun 2025</td><td>15 Sep 2025</td><td>Somnath Temple</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>RS-2025-00871</td><td>Meena Patel</td><td>2 Jun 2025</td><td>1 Sep 2025</td><td>Dwarka Temple</td><td><span class="badge badge-approved">Used</span></td></tr>
-                <tr><td>RS-2025-00844</td><td>Suresh Modi</td><td>20 May 2025</td><td>19 Aug 2025</td><td>—</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>RS-2024-00720</td><td>Ravi Sharma</td><td>25 Aug 2024</td><td>24 Nov 2024</td><td>Ambaji Temple</td><td><span class="badge badge-rejected">Expired</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- ADMIN TEMPLES -->
-      <div id="admin-temples" style="display:none;">
-        <div class="dash-header"><h2>Partner Temples</h2><p>Manage participating temple partners</p></div>
-        <div class="card">
-          <div class="admin-table-header">
-            <h3>Temple Registry</h3>
-            <button class="btn btn-primary btn-sm" onclick="alert('Add temple form would open here')">+ Add Temple</button>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Temple ID</th><th>Temple Name</th><th>City</th><th>State</th><th>Entries This Month</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>T001</td><td>Somnath Jyotirlinga</td><td>Veraval</td><td>Gujarat</td><td>142</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>T002</td><td>Dwarkadhish Temple</td><td>Dwarka</td><td>Gujarat</td><td>98</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>T003</td><td>Ambaji Shakti Peeth</td><td>Ambaji</td><td>Gujarat</td><td>76</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>T004</td><td>Akshardham Gandhinagar</td><td>Gandhinagar</td><td>Gujarat</td><td>210</td><td><span class="badge badge-approved">Active</span></td></tr>
-                <tr><td>T005</td><td>Palitana Jain Temples</td><td>Palitana</td><td>Gujarat</td><td>55</td><td><span class="badge badge-approved">Active</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
+<div class="footer">
+  &copy; 2026 <span>IronPulse</span> Gym — Rajkot, Gujarat. All rights reserved.
 </div>
 
 <script>
-  function showPage(page) {
+  function showPage(name, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + page);
-    if (target) {
-      target.classList.add('active');
-      window.scrollTo(0, 0);
-    }
-    // Update nav active states
+    document.getElementById('page-' + name).classList.add('active');
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    if (el) el.classList.add('active');
+    document.getElementById('navLinks').classList.remove('open');
+    window.scrollTo(0, 0);
   }
-
-  function showDashSection(section) {
-    const sections = ['overview', 'donations', 'notifications', 'profile'];
-    sections.forEach(s => {
-      const el = document.getElementById('dash-' + s);
-      if (el) el.style.display = s === section ? 'block' : 'none';
-    });
-    document.querySelectorAll('.dash-sidebar .sidebar-nav a').forEach(a => a.classList.remove('active'));
-    event && event.target && event.target.closest('a') && event.target.closest('a').classList.add('active');
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
   }
-
-  function showAdminSection(section) {
-    const sections = ['overview', 'verify', 'donors', 'passes', 'temples'];
-    sections.forEach(s => {
-      const el = document.getElementById('admin-' + s);
-      if (el) el.style.display = s === section ? 'block' : 'none';
-    });
-  }
-
-  function verifyPass() {
-    const input = document.getElementById('verify-input').value.trim().toUpperCase();
-    const valid = document.getElementById('verify-result-valid');
-    const invalid = document.getElementById('verify-result-invalid');
-    valid.style.display = 'none';
-    invalid.style.display = 'none';
-    if (input === 'RS-2025-00892' || input === 'RS-2025-00871' || input === 'RS-2025-00844') {
-      valid.style.display = 'flex';
-    } else if (input.length > 0) {
-      invalid.style.display = 'flex';
-    }
-  }
-
-  // Enter key for verify
-  document.getElementById('verify-input') && document.getElementById('verify-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') verifyPass();
-  });
 </script>
 </body>
 </html>
